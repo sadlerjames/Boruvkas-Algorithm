@@ -48,6 +48,7 @@ class Graph:
         self.parents = []
         mstWeight = 0
         mstEdges = []
+        iteration = 1
 
         # add all the nodes as individual parents
         for node in range(self.nodes):
@@ -92,8 +93,12 @@ class Graph:
                         mstEdges.append([u, v, w])
                         self.union(rootU, rootV)
 
-            print("\nFinal MST Weight:", mstWeight)
-            print("Final MST Edges:", mstEdges)
+            print("\nIteration:", iteration, "- MST Weight:", mstWeight)
+            print("Iteration:", iteration, "- MST Edges:", mstEdges)
+            iteration += 1
+
+        print("\nFinal MST Weight:", mstWeight)
+        print("Final MST Edges:", mstEdges)
         
 
 # To test the code:
@@ -107,39 +112,46 @@ class Graph:
 
 g1 = Graph(9)
 g1.add_edge(0, 1, 4)
-g1.add_edge(0, 7, 8)
-g1.add_edge(1, 2, 8)
-g1.add_edge(1, 7, 11)
-g1.add_edge(2, 3, 7)
-g1.add_edge(2, 5, 4)
-g1.add_edge(2, 8, 2)
-g1.add_edge(3, 4, 9)
-g1.add_edge(3, 5, 14)
-g1.add_edge(4, 5, 10)
-g1.add_edge(5, 6, 2)
+g1.add_edge(0, 6, 7)
+g1.add_edge(1, 2, 9)
+g1.add_edge(1, 6, 11)
+g1.add_edge(1, 7, 20)
 g1.add_edge(6, 7, 1)
-g1.add_edge(6, 8, 6)
-g1.add_edge(7, 8, 7)
+g1.add_edge(2, 3, 6)
+g1.add_edge(2, 4, 2)
+g1.add_edge(4, 3, 10)
+g1.add_edge(4, 5, 15)
+g1.add_edge(4, 7, 1)
+g1.add_edge(4, 8, 5)
+g1.add_edge(7, 8, 3)
+g1.add_edge(3, 5, 5)
+g1.add_edge(8, 5, 12)
+
+# Expected Final Outputs:
+# Final MST Weight: 29
+# Final MSt Edges: [[0, 1, 4], [2, 4, 2], [3, 5, 5], [4, 7, 1], [6, 7, 1], [7, 8, 3], [0, 6, 7], [2, 3, 6]]
+g1.boruvkas()
+
+
+# Test Case 2:
 
 
 
 
-
-
-g = Graph(9)
-g.add_edge(0,1,4)
-g.add_edge(0,7,8)
-g.add_edge(1,2,8)
-g.add_edge(1,7,11)
-g.add_edge(7,8,7)
-g.add_edge(7,6,1)
-g.add_edge(2,3,7)
-g.add_edge(2,8,2)
-g.add_edge(2,5,4)
-g.add_edge(2,3,7)
-g.add_edge(8,6,6)
-g.add_edge(6,5,2)
-g.add_edge(3,4,9)
-g.add_edge(3,5,14)
-g.add_edge(5,4,10)
-g.boruvkas()
+# g = Graph(9)
+# g.add_edge(0,1,4)
+# g.add_edge(0,7,8)
+# g.add_edge(1,2,8)
+# g.add_edge(1,7,11)
+# g.add_edge(7,8,7)
+# g.add_edge(7,6,1)
+# g.add_edge(2,3,7)
+# g.add_edge(2,8,2)
+# g.add_edge(2,5,4)
+# g.add_edge(2,3,7)
+# g.add_edge(8,6,6)
+# g.add_edge(6,5,2)
+# g.add_edge(3,4,9)
+# g.add_edge(3,5,14)
+# g.add_edge(5,4,10)
+# g.boruvkas()
