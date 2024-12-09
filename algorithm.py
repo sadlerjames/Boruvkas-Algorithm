@@ -133,7 +133,28 @@ g1.add_edge(8, 5, 12)
 g1.boruvkas()
 
 
+
+
 # Test Case 2:
+
+g2 = Graph(7)
+g2.add_edge(0, 1, 6)
+g2.add_edge(0, 2, 7)
+g2.add_edge(0, 3, 5)
+g2.add_edge(1, 3, 2)
+g2.add_edge(2, 6, 10)
+g2.add_edge(2, 5, 11)
+g2.add_edge(2, 4, 9)
+g2.add_edge(3, 4, 12)
+g2.add_edge(3, 6, 8)
+g2.add_edge(6, 5, 4)
+g2.add_edge(4, 5, 3)
+
+# Expected Final Outputs:
+# Final MST Weight: 29
+# Final MST Edges: [[0, 3, 5], [1, 3, 2], [0, 2, 7], [4, 5, 3], [6, 5, 4], [3, 6, 8]]
+g2.boruvkas()
+
 
 
 
