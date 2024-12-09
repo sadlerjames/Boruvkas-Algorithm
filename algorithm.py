@@ -109,6 +109,7 @@ class Graph:
 
 
 # Test Case 1:
+print("Test Case 1:")
 
 g1 = Graph(9)
 g1.add_edge(0, 1, 4)
@@ -136,6 +137,7 @@ g1.boruvkas()
 
 
 # Test Case 2:
+print("\n\n\nTest Case 2:")
 
 g2 = Graph(7)
 g2.add_edge(0, 1, 6)
@@ -158,21 +160,26 @@ g2.boruvkas()
 
 
 
+# Test Case 3:
+print("\n\n\nTest Case 3:")
 
-# g = Graph(9)
-# g.add_edge(0,1,4)
-# g.add_edge(0,7,8)
-# g.add_edge(1,2,8)
-# g.add_edge(1,7,11)
-# g.add_edge(7,8,7)
-# g.add_edge(7,6,1)
-# g.add_edge(2,3,7)
-# g.add_edge(2,8,2)
-# g.add_edge(2,5,4)
-# g.add_edge(2,3,7)
-# g.add_edge(8,6,6)
-# g.add_edge(6,5,2)
-# g.add_edge(3,4,9)
-# g.add_edge(3,5,14)
-# g.add_edge(5,4,10)
-# g.boruvkas()
+g3 = Graph(9)
+g3.add_edge(0,1,4)
+g3.add_edge(0,7,8)
+g3.add_edge(1,2,8)
+g3.add_edge(1,7,11)
+g3.add_edge(7,8,7)
+g3.add_edge(7,6,1)
+g3.add_edge(2,3,7)
+g3.add_edge(2,8,2)
+g3.add_edge(2,5,4)
+g3.add_edge(8,6,6)
+g3.add_edge(6,5,2)
+g3.add_edge(3,4,9)
+g3.add_edge(3,5,14)
+g3.add_edge(5,4,10)
+
+# Expected Final Outputs:
+# Final MST Weight: 37
+# Final MST Edges: [[0, 1, 4], [2, 8, 2], [2, 3, 7], [3, 4, 9], [6, 5, 2], [7, 6, 1], [0, 7, 8], [2, 5, 4]]
+g3.boruvkas()
