@@ -4,10 +4,12 @@ class Graph:
         self.edges = [] # all edges of the graph
         self.cheapest = [] # cheapest edge for each node
 
+    # appends passed in edge to Graph
+    # u = source vertex, v = desination vertex, w = weight of the edge
     def add_edge(self, u, v, w):
         self.edges.append([u, v, w])
 
-    # when given a vertex, find the cheapest edge that it connects to
+    # find cheapest edge that passed in vertex (v) connects to
     def findCheapest(self, v):
         cheapest = []
         
@@ -16,11 +18,10 @@ class Graph:
             if (e[0] == v) or (e[1]) == v:
                 cheapest = e
 
-        # cycle through all edges
         for e in self.edges:
-            # if the edge contains the vertex
+            # if edge connects to the vertex
             if (e[0] == v) or (e[1]) == v:
-                # if the weight of the edge is less than cheapest, update cheapest
+                # if weight of the edge is less than cheapest, update cheapest
                 if e[2] < cheapest[2]:
                     cheapest = e
 
@@ -28,24 +29,23 @@ class Graph:
     
     # recursively looks through the parent array to find the root
     def findRoot(self,v):
-        if self.parents[v] != v:  # If v is not its own parent
-            self.parents[v] = self.findRoot(self.parents[v])  # Recursively find and compress
+        if self.parents[v] != v:  # if v is not its own parent
+            self.parents[v] = self.findRoot(self.parents[v])  # recursively find and compress
         return self.parents[v]
     
 
-    
-    # combine two parents into the same component, making u the parent of v
+    # combine two parents into same component, making u the parent of v
     def union(self, u, v):
         rootU = self.findRoot(u)
         rootV = self.findRoot(v)
 
+        # make rootU the parent of rootV
         if rootU != rootV:
-            self.parents[rootV] = rootU # make rootU the parent of rootV
+            self.parents[rootV] = rootU 
 
-
+    # calculates the MST of the graph
     def boruvkas(self):
         self.parents = []
-        self.children = [] # first value in the sub array is the parent
         mstWeight = 0
         mstEdges = []
 
@@ -64,37 +64,67 @@ class Graph:
         while len(set(self.findRoot(i) for i in range(self.nodes))) > 1:
             cheapestEdge = [None] * self.nodes 
 
-            # Find the cheapest edge for each component
+            # find the cheapest edge for each component
             for u, v, w in self.edges:
                 rootU = self.findRoot(u)
                 rootV = self.findRoot(v)
 
-                # If u and v belong to different components
+                # if u and v belong to different components
                 if rootU != rootV:
-                    # Check and update the cheapest edge for component of u
+                    # check and update the cheapest edge for component of u
                     if cheapestEdge[rootU] is None or w < cheapestEdge[rootU][2]:
                         cheapestEdge[rootU] = [u, v, w]
 
-                    # Check and update the cheapest edge for component of v
+                    # check and update the cheapest edge for component of v
                     if cheapestEdge[rootV] is None or w < cheapestEdge[rootV][2]:
                         cheapestEdge[rootV] = [u, v, w]
 
             for i in range(self.nodes):
-                if cheapestEdge[i] is not None:  # If there's a valid cheapest edge
+                # if there's a valid cheapest edge
+                if cheapestEdge[i] is not None:  
                     u, v, w = cheapestEdge[i]
                     rootU = self.findRoot(u)
                     rootV = self.findRoot(v)
 
-                    # If the edge connects different components, add it to the MST
+                    # if edge connects different components, add it to the MST
                     if rootU != rootV:
                         mstWeight += w
                         mstEdges.append([u, v, w])
                         self.union(rootU, rootV)
 
-            # Output the MST weight and edges
             print("\nFinal MST Weight:", mstWeight)
             print("Final MST Edges:", mstEdges)
         
+
+# To test the code:
+# 1. Initalise a new instance of the class, Graph, with the required number of vertices of the graph you are testing
+# 2. Add all edges of your graph to the instance via the add_edge function 
+# 3. Call the boruvkas function on the instance of the Graph class
+# 4. Repeat for different graphs
+
+
+# Test Case 1:
+
+g1 = Graph(9)
+g1.add_edge(0, 1, 4)
+g1.add_edge(0, 7, 8)
+g1.add_edge(1, 2, 8)
+g1.add_edge(1, 7, 11)
+g1.add_edge(2, 3, 7)
+g1.add_edge(2, 5, 4)
+g1.add_edge(2, 8, 2)
+g1.add_edge(3, 4, 9)
+g1.add_edge(3, 5, 14)
+g1.add_edge(4, 5, 10)
+g1.add_edge(5, 6, 2)
+g1.add_edge(6, 7, 1)
+g1.add_edge(6, 8, 6)
+g1.add_edge(7, 8, 7)
+
+
+
+
+
 
 g = Graph(9)
 g.add_edge(0,1,4)
