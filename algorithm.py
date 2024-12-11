@@ -1,3 +1,12 @@
+# The following code is an implementation of Boruvka's Algorithm
+# Instructions to test the code are below the Graph Class
+# Test cases are below the Graph Class
+
+# The results of the algorithm are displayed in the terminal. The final MST Weight is printed. An array of all edges in the final MST are printed.
+# The edges added to the MST at each iterations are printed to show step-by-step construction of the final MST.
+# I opted to display the results like this for simplicity and efficiency given the scope of this coursework. 
+# If I were to continue developing this project, I would implement graph visualisation to display the MST to provide a more intuitive understanding.
+
 class Graph:
     def __init__(self, numOfNodes):
         self.nodes = numOfNodes
@@ -13,28 +22,30 @@ class Graph:
     def findCheapest(self, v):
         cheapest = []
         
-        # find an edge to initalise cheapest with a value
+        # find an edge connected to v to initalise cheapest
         for e in self.edges:
-            if (e[0] == v) or (e[1]) == v:
-                cheapest = e
+            if (e[0] != e[1]): # ignore edges that are a loop
+                if (e[0] == v) or (e[1]) == v:
+                    cheapest = e
 
         for e in self.edges:
             # if edge connects to the vertex
-            if (e[0] == v) or (e[1]) == v:
-                # if weight of the edge is less than cheapest, update cheapest
-                if e[2] < cheapest[2]:
-                    cheapest = e
+            if (e[0] == v) or (e[1]) == v: 
+                if (e[0] != e[1]): # ignore edges that are a loop
+                    # if weight of the edge is less than cheapest, update cheapest
+                    if e[2] < cheapest[2]:
+                        cheapest = e
 
         return cheapest
     
-    # recursively looks through the parent array to find the root
+    # recursively looks through the parent array to find the root of vertex v
     def findRoot(self,v):
         if self.parents[v] != v:  # if v is not its own parent
             self.parents[v] = self.findRoot(self.parents[v])  # recursively find and compress
         return self.parents[v]
     
 
-    # combine two parents into same component, making u the parent of v
+    # combine two parents into same component, making vertex u the parent of vertex v
     def union(self, u, v):
         rootU = self.findRoot(u)
         rootV = self.findRoot(v)
